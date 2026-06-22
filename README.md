@@ -28,6 +28,7 @@ vec3 sum = vec_add(foo, 4.3f);
 ```
 
 ## Func:            2    3    4
+```txt
 matrix translate   [ ]  [x]  [ ]
 matrix scale       [ ]  [x]  [ ]
 matrix add         [ ]  [ ]  [ ]
@@ -46,3 +47,4 @@ vector cross       [ ]  [x]  [ ]
 vector dot         [ ]  [x]  [ ]
 vector normalize   [ ]  [x]  [ ]
 vector print       [x]  [x]  [x]
+```
