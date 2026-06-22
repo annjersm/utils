@@ -27,8 +27,9 @@ vec3 sum = vec_add(foo, bar);
 vec3 sum = vec_add(foo, 4.3f);
 ```
 
-## Func:            2    3    4
+## Func:
 ```txt
+                    2    3    4
 matrix translate   [ ]  [x]  [ ]
 matrix scale       [ ]  [x]  [ ]
 matrix add         [ ]  [ ]  [ ]
