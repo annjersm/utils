@@ -67,17 +67,28 @@ vec4 vec4_subf(vec4 a, float b);
 	)((a),(b))
 
 vec3 cross(vec3 a, vec3 b) ;
+float vec2_dot(vec2 a, vec2 b);
 float vec3_dot(vec3 a, vec3 b);
-#define dot(a, b) vec3_dot(a, b)
+float vec4_dot(vec4 a, vec4 b);
+#define dot(a, b) \
+	_Generic((a), \
+			vec2: vec2_dot, \
+			vec3: vec3_dot, \
+			vec4: vec4_dot  \
+			)((a,)(b))
 
 float vec2_length(vec2 v);
 float vec3_length(vec3 v);
 float vec4_length(vec4 v);
 #define length(a) \
 	_Generic((a), vec2: vec2_length, vec3: vec3_length, vec4: vec4_length \
-			)((a)) \
+			)((a))
 
-vec3 normalize(vec3 v);
+vec3 vec3_normalize(vec3 v);
+#define normalize(a) \
+	_Generic((a), vec3: vec3_normalize(a) \
+		)((a))
+
 void print_vec2(vec2 v);
 void print_vec3(vec3 v);
 void print_vec4(vec4 v);

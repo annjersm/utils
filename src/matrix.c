@@ -122,13 +122,19 @@ mat4 div4(mat4 a, mat4 b)
 {
 }
 
+void print_mat2(mat2 m)
+{
+	for (int i = 0; i < 2; i++)
+		printf("%2.2f %2.2f\n", m.m[0][i], m.m[1][i]);
+}
+void print_mat3(mat3 m)
+{
+	for (int i = 0; i < 3; i++)
+		printf("%2.2f %2.2f %2.2f\n", m.m[0][i], m.m[1][i], m.m[2][i]);
+}
 void print_mat4(mat4 m)
 {
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++)
 		printf("%2.2f %2.2f %2.2f %2.2f\n",
-				m.m[0][i],
-				m.m[1][i],
-				m.m[2][i],
-				m.m[3][i]);
-	}
+				m.m[0][i], m.m[1][i], m.m[2][i], m.m[3][i]);
 }

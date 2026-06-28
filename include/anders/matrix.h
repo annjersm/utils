@@ -20,22 +20,28 @@
 	d1,d2,d3,d4     \
 }}
 
+
 /* mat2 */
 mat2 identity2(float i);
+//#define mat2(i) identity2(i)
 mat2 add2(mat2 a, mat2 b);
 mat2 sub2(mat2 a, mat2 b);
 mat2 mul2(mat2 a, mat2 b);
 //mat2 div2(mat2 a, mat2 b);
+void print_mat2(mat2 m);
 
 /* mat3 */
 mat3 identity3(float i);
+//#define mat3(i) identity3(i)
 mat3 add3(mat3 a, mat3 b);
 mat3 sub3(mat3 a, mat3 b);
 mat3 mul3(mat3 a, mat3 b);
 //mat3 div3(mat3 a, mat3 b);
+void print_mat3(mat3 m);
 
 /* mat4 */
 mat4 identity4(float i);
+//#define mat4(i) identity4(i)
 #define identity(i) identity4(i)
 mat4 add4(mat4 a, mat4 b);
 mat4 sub4(mat4 a, mat4 b);
@@ -43,32 +49,38 @@ mat4 mul4(mat4 a, mat4 b);
 //mat4 div4(mat4 a, mat4 b);
 void print_mat4(mat4 m);
 
+#define mat_print(a) \
+	_Generic((a), \
+			mat2: print_mat2, \
+			mat3: print_mat3, \
+			mat4: print_mat4 \
+			)((a))
+
 static inline mat4 mat4_look_at(vec3 pos, vec3 target, vec3 up)
 {
 	mat4 matrix = identity(1.0f);
 	vec3 f = normalize(vec3_sub(target, pos));
-	vec3 u = normalize(up);
-	vec3 s = normalize(cross(f, u));
-	u = cross(s, f);
+	vec3 s = normalize(cross(up, f));
+	vec3 u = cross(f, s);
 	matrix.data[ 0] = s.x;
 	matrix.data[ 1] = s.y;
 	matrix.data[ 2] = s.z;
-	matrix.data[ 3] = 0;
+	matrix.data[ 3] = 0.0f;
 
 	matrix.data[ 4] = u.x;
 	matrix.data[ 5] = u.y;
 	matrix.data[ 6] = u.z;
-	matrix.data[ 7] = 0;
+	matrix.data[ 7] = 0.0f;
 
 	matrix.data[ 8] = -f.x;
 	matrix.data[ 9] = -f.y;
 	matrix.data[10] = -f.z;
-	matrix.data[11] = 0;
+	matrix.data[11] = 0.0f;
 
 	matrix.data[12] = -dot(s, pos);
 	matrix.data[13] = -dot(u, pos);
 	matrix.data[14] =  dot(f, pos);
-	matrix.data[15] = 1;
+	matrix.data[15] = 1.0f;
 	return matrix;
 }
 
