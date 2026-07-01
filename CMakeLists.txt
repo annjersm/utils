@@ -13,10 +13,6 @@ add_library (${PROJECT_NAME}
 	src/matrix.c
 	src/math.c
 	src/vector.c
-#	include/anders/matrix.h
-#	include/anders/types.h
-#	include/anders/util.h
-#	include/anders/vector.h
 )
 target_link_libraries (${PROJECT_NAME} m)
 
