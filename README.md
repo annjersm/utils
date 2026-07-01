@@ -21,10 +21,10 @@ vec3 foo = vec3(4, 0.5, 2);
 vec3 bar = vec3(6, 0.1, 3);
 
 // Vector + vector
-vec3 sum = vec_add(foo, bar);
+vec3 sum = vec_mul(foo, bar);
 
 // Vector + float (scalar)
-vec3 sum = vec_add(foo, 4.3f);
+vec3 sum = vec_mul(foo, 4.3f);
 ```
 
 ## Func:
@@ -45,7 +45,8 @@ vector div         [x]  [x]  [x]
 vector mul         [x]  [x]  [x]
 vector sub         [x]  [x]  [x]
 vector cross       [ ]  [x]  [ ]
-vector dot         [ ]  [x]  [ ]
-vector normalize   [ ]  [x]  [ ]
+vector dot         [x]  [x]  [x]
+vector length      [x]  [x]  [x]
+vector normalize   [x]  [x]  [x]
 vector print       [x]  [x]  [x]
 ```
