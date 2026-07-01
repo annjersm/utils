@@ -12,7 +12,7 @@ typedef union mat2 mat2;
 typedef union mat3 mat3;
 typedef union mat4 mat4;
 
-#define PI 3.1415926535
+#define PI 3.14159265359
 
 typedef union {
 	struct {float x, y;};

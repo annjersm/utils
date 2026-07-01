@@ -75,7 +75,7 @@ float vec4_dot(vec4 a, vec4 b);
 			vec2: vec2_dot, \
 			vec3: vec3_dot, \
 			vec4: vec4_dot  \
-			)((a,)(b))
+			)((a),(b))
 
 float vec2_length(vec2 v);
 float vec3_length(vec3 v);
@@ -84,9 +84,14 @@ float vec4_length(vec4 v);
 	_Generic((a), vec2: vec2_length, vec3: vec3_length, vec4: vec4_length \
 			)((a))
 
+vec2 vec2_normalize(vec2 v);
 vec3 vec3_normalize(vec3 v);
+vec4 vec4_normalize(vec4 v);
 #define normalize(a) \
-	_Generic((a), vec3: vec3_normalize(a) \
+	_Generic((a), \
+			vec2: vec2_normalize, \
+			vec3: vec3_normalize, \
+			vec4: vec4_normalize  \
 		)((a))
 
 void print_vec2(vec2 v);

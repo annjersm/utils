@@ -113,12 +113,26 @@ float vec4_length(vec4 v) {
 	return sqrtf(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
 }
 
-vec3 normalize(vec3 v)
+vec2 vec2_normalize(vec2 v)
 {
 	float length = sqrtf(dot(v, v));
-	if (length == 0.0f) return v;
+	if (0.0f == length)
+		return v;
+	return vec2(v.x / length, v.y / length);
+}
+vec3 vec3_normalize(vec3 v)
+{
+	float length = sqrtf(dot(v, v));
+	if (0.0f == length)
+		return v;
 	return vec3(v.x / length, v.y / length, v.z / length);
-	//return (vec3) {{v.x / length, v.y / length, v.z / length}};
+}
+vec4 vec4_normalize(vec4 v)
+{
+	float length = sqrtf(dot(v, v));
+	if (0.0f == length)
+		return v;
+	return vec4(v.x / length, v.y / length, v.z / length, v.w / length);
 }
 
 

@@ -59,29 +59,28 @@ void print_mat4(mat4 m);
 static inline mat4 mat4_look_at(vec3 pos, vec3 target, vec3 up)
 {
 	mat4 matrix = identity(1.0f);
-	vec3 f = normalize(vec3_sub(target, pos));
-	vec3 s = normalize(cross(up, f));
-	vec3 u = cross(f, s);
-	matrix.data[ 0] = s.x;
-	matrix.data[ 1] = s.y;
-	matrix.data[ 2] = s.z;
-	matrix.data[ 3] = 0.0f;
+	mat4 translation = identity(1.0f);
 
-	matrix.data[ 4] = u.x;
-	matrix.data[ 5] = u.y;
-	matrix.data[ 6] = u.z;
-	matrix.data[ 7] = 0.0f;
+	vec3 direction = normalize(vec_sub(pos, target));
+	vec3 right = normalize(cross(up, direction));
+	vec3 u = cross(direction, right);
 
-	matrix.data[ 8] = -f.x;
-	matrix.data[ 9] = -f.y;
-	matrix.data[10] = -f.z;
-	matrix.data[11] = 0.0f;
-
-	matrix.data[12] = -dot(s, pos);
-	matrix.data[13] = -dot(u, pos);
-	matrix.data[14] =  dot(f, pos);
-	matrix.data[15] = 1.0f;
-	return matrix;
+	matrix.m[0][0] = right.x;
+	matrix.m[0][1] = right.y;
+	matrix.m[0][2] = right.z;
+                   
+	matrix.m[1][0] = u.x;
+	matrix.m[1][1] = u.y;
+	matrix.m[1][2] = u.z;
+                   
+	matrix.m[2][0] = -direction.x;
+	matrix.m[2][1] = -direction.y;
+	matrix.m[2][2] = -direction.z;
+                   
+	matrix.m[0][3] = -dot(right, pos);
+	matrix.m[1][3] = -dot(u, pos);
+	matrix.m[2][3] = dot(direction, pos);
+	return mul4(matrix, translation);
 }
 
 static inline mat4 mat4_orthographic(float l, float r, float b, float t, float f, float n)
@@ -97,12 +96,14 @@ static inline mat4 mat4_orthographic(float l, float r, float b, float t, float f
 static inline mat4 mat4_perspective(float fov, float aspect, float near, float  far)
 {
 	mat4 matrix = { .m = {1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1}};
-	float f = 1.0f / tanf(fov * 0.5f * (float)PI / 180.0f);
+	if (near <= 0.0f || far <= near || aspect <= 0.0f)
+		return identity4(1.0f);
+	float f = 1.0f / tanf(fov * 0.5f);
 	matrix.data[0] = f / aspect;
 	matrix.data[5] = f;
-	matrix.data[10] = -1.0f;
-	matrix.data[11] = -1.0f;
-	matrix.data[14] = -2.0f * near;
+	matrix.data[10] = (far + near) / (near - far);
+	matrix.data[11] = (2.0f * far * near) / (near -far);
+	matrix.data[14] = -1.0f;
 	matrix.data[15] = 0.0f;
 	return matrix;
 }
